@@ -281,11 +281,23 @@ async function loadPage() {
   loadDelayed();
 }
 
-document.addEventListener('custom:openUE', (event) => {
+const openUE = (event) => {
   const url = 'https://author-p15404-e146221-cmstg.adobeaemcloud.com/bin/wcmcommand?cmd=open&_charset_=utf-8&path=/content/test-jck-1/index';
   // open this url in a new tab
   window.open(url, '_blank');
-});
+};
+
+const sk = document.querySelector('helix-sidekick');
+if (sk) {
+  // sidekick already loaded
+  sk.addEventListener('custom:openUE', openUE);
+} else {
+  // wait for sidekick to be loaded
+  document.addEventListener('sidekick-ready', () => {
+    document.querySelector('helix-sidekick')
+      .addEventListener('custom:openUE', openUE);
+  }, { once: true });
+}
 
 loadPage();
 
