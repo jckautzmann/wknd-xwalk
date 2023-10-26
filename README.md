@@ -2,8 +2,8 @@
 Your project's description...
 
 ## Environments
-- Preview: https://main--wknd-xwalk--adobe-rnd.hlx.page/
-- Live: https://main--wknd-xwalk--adobe-rnde.hlx.live/
+- Preview: https://main--wknd-xwalk--jckautzmann.hlx.page/
+- Live: https://main--wknd-xwalk--jckautzmann.hlx.live/
 
 ## Installation
 
