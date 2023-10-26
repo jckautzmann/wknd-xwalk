@@ -13,7 +13,7 @@
     {
       "id": "universaleditor",
       "title": "Universal Editor",
-      "environments": [ "edit" ],
+      "environments": [ "edit", "preview", "any", "dev" ],
       "url": "fstab.yaml"
     }
   ]
