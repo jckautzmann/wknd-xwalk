@@ -14,7 +14,7 @@
       "id": "universaleditor",
       "title": "Universal Editor",
       "environments": [ "edit", "preview", "any", "dev" ],
-      "url": "/tools/sidekick/ue/index.html"
+      "event": "openUE"
     }
   ]
 }
