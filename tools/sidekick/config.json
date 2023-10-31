@@ -11,10 +11,10 @@
       "includePaths": [ "**.docx**" ]
     },
     {
-      "id": "universaleditor",
-      "title": "Universal Editor",
+      "id": "aemedit",
+      "title": "Edit",
       "environments": [ "edit", "preview", "any", "dev" ],
-      "event": "openUE"
+      "event": "aemedit"
     }
   ]
 }

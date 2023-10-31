@@ -13,9 +13,10 @@ import {
   loadCSS,
   toClassName,
   buildBlock,
-  decorateBlock,
   readBlockConfig,
 } from './lib-franklin.js';
+
+import { initSidekick } from './sidekick/sidekick.js';
 
 const LCP_BLOCKS = []; // add your LCP blocks to the list
 window.hlx.RUM_GENERATION = 'project-1'; // add your RUM generation information here
@@ -273,6 +274,7 @@ function loadDelayed() {
   // eslint-disable-next-line import/no-cycle
   window.setTimeout(() => import('./delayed.js'), 3000);
   // load anything that can be postponed to the latest here
+  initSidekick();
 }
 
 async function loadPage() {
@@ -281,23 +283,4 @@ async function loadPage() {
   loadDelayed();
 }
 
-const openUE = (event) => {
-  const url = 'https://author-p15404-e146221-cmstg.adobeaemcloud.com/bin/wcmcommand?cmd=open&_charset_=utf-8&path=/content/test-jck-1/index';
-  // open this url in a new tab
-  window.open(url, '_blank');
-};
-
-const sk = document.querySelector('helix-sidekick');
-if (sk) {
-  // sidekick already loaded
-  sk.addEventListener('custom:openUE', openUE);
-} else {
-  // wait for sidekick to be loaded
-  document.addEventListener('sidekick-ready', () => {
-    document.querySelector('helix-sidekick')
-      .addEventListener('custom:openUE', openUE);
-  }, { once: true });
-}
-
 loadPage();
-
