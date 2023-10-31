@@ -1,4 +1,4 @@
-async function getMountPoint(owner, repo, ref) {
+async function getContentSourceUrl(owner, repo, ref) {
   const res = await fetch(`https://admin.hlx.page/sidekick/${owner}/${repo}/${ref}/env.json`);
   if (!res || !res.ok) {
     return null;
@@ -11,21 +11,21 @@ async function getMountPoint(owner, repo, ref) {
 }
 async function openAemEditor(event) {
   const { owner, repo, ref } = event.detail.data.config;
-  const mountPoint = await getMountPoint(owner, repo, ref);
+  const contentSourceUrl = await getContentSourceUrl(owner, repo, ref);
   const path = window.location.pathname;
-  const editorUrl = `${mountPoint}${path}?cmd=open`;
+  const editorUrl = `${contentSourceUrl}${path}?cmd=open`;
   // open the editor in a new tab
   window.open(editorUrl, '_blank');
 }
 
-async function overrideEdit(sk) {
-  // TODO: replace edit button with the custom one
-  // TODO: change event name in config.json
-  
-  // Wait for edit button
-  const oldEditBtn = await new Promise((resolve) => {
+function getButton(sk, selector) {
+  let btn = sk.shadowRoot.querySelector(selector);
+  if (btn) {
+    return btn;
+  }
+  return new Promise((resolve) => {
     const check = () => {
-      const btn = sk.shadowRoot.querySelectorAll('.edit.plugin')[0];
+      btn = sk.shadowRoot.querySelector(selector);
       if (btn) {
         resolve(btn);
       } else {
@@ -34,10 +34,16 @@ async function overrideEdit(sk) {
     };
     check();
   });
-  
-  const newEditBtn = sk.shadowRoot.querySelectorAll('.universaleditor.plugin')[0];
+}
+
+async function overrideEditButton(sk) {
+  const oldEditBtn = await getButton(sk, '.edit.plugin');
+  const newEditBtn = await getButton(sk, '.aemedit.plugin');
   oldEditBtn.replaceWith(newEditBtn);
-  sk.addEventListener('custom:openUE', openAemEditor);
+  // hack to remove the original edit button that is generated again in the DOM
+  const oldEditBtn1 = await getButton(sk, '.edit.plugin');
+  oldEditBtn1.remove();
+  sk.addEventListener('custom:aemedit', openAemEditor);
 }
 
 // eslint-disable-next-line import/prefer-default-export
@@ -45,12 +51,12 @@ export function initSidekick() {
   let sk = document.querySelector('helix-sidekick');
   if (sk) {
     // sidekick already loaded
-    overrideEdit(sk);
+    overrideEditButton(sk);
   } else {
     // wait for sidekick to be loaded
     document.addEventListener('sidekick-ready', () => {
       sk = document.querySelector('helix-sidekick');
-      overrideEdit(sk);
+      overrideEditButton(sk);
     }, { once: true });
   }
 }
