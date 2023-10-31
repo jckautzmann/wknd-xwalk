@@ -13,7 +13,7 @@
     {
       "id": "aemedit",
       "title": "Edit",
-      "environments": [ "edit", "preview", "any", "dev" ],
+      "environments": [ "dev", "preview", "live" ],
       "event": "aemedit"
     }
   ]
