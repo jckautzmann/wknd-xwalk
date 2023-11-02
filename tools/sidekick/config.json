@@ -15,6 +15,13 @@
       "title": "Edit",
       "environments": [ "dev", "preview", "live" ],
       "event": "aemedit"
+    },
+    {
+      "id": "edit",
+      "title": "Edit",
+      "environments": [ "dev", "preview", "live" ],
+      "event": "edit",
+      "override": true
     }
   ]
 }
