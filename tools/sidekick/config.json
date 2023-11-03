@@ -17,11 +17,16 @@
       "event": "aemedit"
     },
     {
-      "id": "edit",
-      "title": "Edit",
+      "id": "aemreload",
+      "title": "AEM Reload",
       "environments": [ "dev", "preview", "live" ],
-      "event": "edit",
-      "override": true
+      "event": "aemreload"
+    },
+    {
+      "id": "aemsignin",
+      "title": "AEM Sign In",
+      "environments": [ "dev", "preview", "live" ],
+      "event": "aemsignin"
     }
   ]
 }
